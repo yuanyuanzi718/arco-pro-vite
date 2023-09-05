@@ -17,6 +17,7 @@ import styles from './style/index.module.less';
 
 export default function LoginForm() {
   const formRef = useRef<FormInstance>();
+  // 登录错误信息
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [loginParams, setLoginParams, removeLoginParams] =
@@ -46,7 +47,7 @@ export default function LoginForm() {
       .post('/api/user/login', params)
       .then((res) => {
         const { status, msg } = res.data;
-        if (status === 'ok') {
+        if (status === 200) {
           afterLoginSuccess(params);
         } else {
           setErrorMessage(msg || t['login.form.login.errMsg']);
@@ -65,6 +66,8 @@ export default function LoginForm() {
 
   // 读取 localStorage，设置初始值
   useEffect(() => {
+    console.log(loginParams, 'loginParams');
+
     const rememberPassword = !!loginParams;
     setRememberPassword(rememberPassword);
     if (formRef.current && rememberPassword) {
@@ -107,22 +110,22 @@ export default function LoginForm() {
           />
         </Form.Item>
         <Space size={16} direction="vertical">
-          <div className={styles['login-form-password-actions']}>
+          {/* <div className={styles['login-form-password-actions']}>
             <Checkbox checked={rememberPassword} onChange={setRememberPassword}>
               {t['login.form.rememberPassword']}
             </Checkbox>
             <Link>{t['login.form.forgetPassword']}</Link>
-          </div>
+          </div> */}
           <Button type="primary" long onClick={onSubmitClick} loading={loading}>
             {t['login.form.login']}
           </Button>
-          <Button
+          {/* <Button
             type="text"
             long
             className={styles['login-form-register-btn']}
           >
             {t['login.form.register']}
-          </Button>
+          </Button> */}
         </Space>
       </Form>
     </div>

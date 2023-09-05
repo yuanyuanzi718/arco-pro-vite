@@ -35,6 +35,7 @@ if (!isSSR) {
       // 登录
       Mock.mock(new RegExp('/api/user/login'), (params) => {
         const { userName, password } = JSON.parse(params.body);
+
         if (!userName) {
           return {
             status: 'error',
@@ -48,8 +49,17 @@ if (!isSSR) {
           };
         }
         if (userName === 'admin' && password === 'admin') {
+          // res.header('Authorization', 'cjh');
           return {
-            status: 'ok',
+            // 状态码 200成功 -1token失效 403没权限
+            status: 200,
+            // 如果错误,错误提示信息
+            message: '',
+            // 数据
+            data: {
+              userInfo: {},
+              permissions: {},
+            },
           };
         }
         return {
