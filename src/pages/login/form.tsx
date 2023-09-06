@@ -9,7 +9,7 @@ import {
 import { FormInstance } from '@arco-design/web-react/es/Form';
 import { IconLock, IconUser } from '@arco-design/web-react/icon';
 import React, { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
+import { post } from '@/utils/axios';
 import useStorage from '@/utils/useStorage';
 import useLocale from '@/utils/useLocale';
 import locale from './locale';
@@ -43,14 +43,14 @@ export default function LoginForm() {
   function login(params) {
     setErrorMessage('');
     setLoading(true);
-    axios
-      .post('/api/user/login', params)
-      .then((res) => {
-        const { status, msg } = res.data;
+    post('/api/user/login', params)
+      .then((res: any) => {
+        // console.log(res, 'res');
+        const { status, message } = res.data;
         if (status === 200) {
           afterLoginSuccess(params);
         } else {
-          setErrorMessage(msg || t['login.form.login.errMsg']);
+          setErrorMessage(message || t['login.form.login.errMsg']);
         }
       })
       .finally(() => {
@@ -66,8 +66,6 @@ export default function LoginForm() {
 
   // 读取 localStorage，设置初始值
   useEffect(() => {
-    console.log(loginParams, 'loginParams');
-
     const rememberPassword = !!loginParams;
     setRememberPassword(rememberPassword);
     if (formRef.current && rememberPassword) {
@@ -110,22 +108,22 @@ export default function LoginForm() {
           />
         </Form.Item>
         <Space size={16} direction="vertical">
-          {/* <div className={styles['login-form-password-actions']}>
+          <div className={styles['login-form-password-actions']}>
             <Checkbox checked={rememberPassword} onChange={setRememberPassword}>
               {t['login.form.rememberPassword']}
             </Checkbox>
             <Link>{t['login.form.forgetPassword']}</Link>
-          </div> */}
+          </div>
           <Button type="primary" long onClick={onSubmitClick} loading={loading}>
             {t['login.form.login']}
           </Button>
-          {/* <Button
+          <Button
             type="text"
             long
             className={styles['login-form-register-btn']}
           >
             {t['login.form.register']}
-          </Button> */}
+          </Button>
         </Space>
       </Form>
     </div>

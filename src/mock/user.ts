@@ -49,7 +49,6 @@ if (!isSSR) {
           };
         }
         if (userName === 'admin' && password === 'admin') {
-          // res.header('Authorization', 'cjh');
           return {
             // 状态码 200成功 -1token失效 403没权限
             status: 200,
