@@ -26,6 +26,10 @@ export const routes: IRoute[] = [
     name: 'Example',
     key: 'example',
   },
+  {
+    name: '增删改查Demo',
+    key: 'curdDemo',
+  },
 ];
 
 export const getName = (path: string, routes) => {
