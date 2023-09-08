@@ -96,7 +96,7 @@ export function getColumns(
             size="small"
             onClick={() => callback('copy', record)}
           >
-            编辑
+            复制
           </Button>
         </Space>
       ),

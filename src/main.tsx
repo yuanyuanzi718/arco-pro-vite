@@ -1,5 +1,5 @@
 import './style/global.less';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -21,6 +21,7 @@ const store = createStore(rootReducer);
 function Index() {
   const [lang, setLang] = useStorage('arco-lang', 'en-US');
   const [theme, setTheme] = useStorage('arco-theme', 'light');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   function getArcoLocale() {
     switch (lang) {
@@ -65,6 +66,8 @@ function Index() {
     setLang,
     theme,
     setTheme,
+    isLoading,
+    setIsLoading,
   };
 
   return (

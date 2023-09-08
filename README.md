@@ -4,10 +4,11 @@
 
 ```
 // 初始化项目
-npm install
+yarn install
 
 // 开发模式
-npm run dev
+yarn dev
 
 // 构建
-npm run build
+yarn build
+```
